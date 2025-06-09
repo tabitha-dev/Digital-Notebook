@@ -50,7 +50,6 @@ The core philosophy of this site is to be a "digital notebook"—a place to shar
 ## Key Features
 
 * **✨ Modern UI/UX:** The site features subtle animations, a "glassmorphism" header, and a clean, high-contrast design for excellent readability.
-* **🌗 Dark & Light Mode:** A theme toggle allows users to switch between light and dark modes based on their preference, which is saved in their browser.
 * **📱 Fully Responsive:** Fully optimized for a seamless experience on desktop, tablet, and mobile devices.
 * **🔍 Dynamic Article Filtering:** Users can filter the displayed articles by category for easy content discovery.
 * **🚀 Pure Vanilla Stack:** Built with fundamental web technologies—no frameworks needed—making it lightweight, fast, and easy to maintain.
