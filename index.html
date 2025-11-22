@@ -1,328 +1,975 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en" class="dark scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tabitha Khadse - Professional Blog</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📝</text></svg>">
+    
+    <!-- SEO & Social Media Meta Tags -->
+    <title>Tabitha Khadse | Engineering Blog & Insights</title>
+    <meta name="description" content="A technical blog exploring scalable architecture, AI integration, and reliable software engineering.">
+    <meta property="og:title" content="Tabitha Khadse | Engineering Blog">
+    <meta property="og:description" content="Deep dives into multi-agent systems, full-stack architecture, and automation.">
+    <meta property="og:image" content="https://media.licdn.com/dms/image/v2/D5603AQHQr8TQBBauYQ/profile-displayphoto-crop_800_800/B56ZlVG42QHAAI-/0/1758069493535?e=1765411200&v=beta&t=GG3dW6TEaPZ_lk648LFVonLEPWXHMvZ0yovwf-vdJso">
+    <meta property="og:url" content="https://tabitha-dev.github.io/portfolio/">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✍️</text></svg>">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        heading: ['"Outfit"', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#6366f1', // Indigo 500
+                        secondary: '#0f172a', // Slate 900
+                    },
+                    backgroundImage: {
+                        'noise': "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E\")",
+                    },
+                    animation: {
+                        'marquee': 'marquee 25s linear infinite',
+                        'fade-in': 'fadeIn 0.3s ease-in-out',
+                        'slide-up': 'slideUp 0.3s ease-out',
+                    },
+                    keyframes: {
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-100%)' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(10px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        /* Base Styles */
-        body {
-            font-family: 'Inter', sans-serif;
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
         }
-        
-        /* Navigation */
-        .nav-link.active {
-             color: #818cf8; /* indigo-400 */
-             font-weight: 600;
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
         }
-        .nav-link:hover { color: #818cf8; }
-        
-        /* Glassmorphism Header */
-        header {
-            background-color: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+
+        /* Glass Header */
+        .glass-header {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         /* Card Styles */
-        .card {
-            background-color: #1e293b;
-            border: 1px solid #334155;
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-            transition: transform 0.3s, box-shadow 0.3s, opacity 0.4s;
+        .article-card {
+            background: linear-gradient(180deg, rgba(30, 41, 59, 0.7) 0%, rgba(30, 41, 59, 0.4) 100%);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            backdrop-filter: blur(4px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
         }
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-        }
-
-        /* Article Filtering & Animation */
-        .article-item.hiding {
+        
+        .article-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.3), transparent);
             opacity: 0;
-            transform: scale(0.95);
-        }
-        .filter-btn:active {
-            transform: scale(0.95);
+            transition: opacity 0.4s;
         }
 
-        /* Scroll Animations */
-        .scroll-animate {
+        .article-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(99, 102, 241, 0.3);
+            box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.3);
+        }
+
+        .article-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Featured Card Special Styles */
+        .article-card.featured {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+        
+        .article-card.featured .summary {
+            font-size: 1.125rem; /* Text-lg */
+            color: #cbd5e1;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .hero-glow {
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .fade-in-up {
             opacity: 0;
             transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
         }
-        .scroll-animate.reveal {
+        
+        .fade-in-up.visible {
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* Text Gradients */
+        .text-gradient-accent {
+            background: linear-gradient(to right, #818cf8, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
         
-        input::placeholder {
-            color: #64748b;
+        /* Marquee Mask */
+        .marquee-mask {
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+        
+        /* Toast Notification */
+        #toast {
+            visibility: hidden;
+            min-width: 250px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 8px;
+            padding: 16px;
+            position: fixed;
+            z-index: 100;
+            left: 50%;
+            bottom: 30px;
+            transform: translateX(-50%);
+            font-size: 17px;
+            opacity: 0;
+            transition: opacity 0.3s, bottom 0.3s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
+        #toast.show {
+            visibility: visible;
+            opacity: 1;
+            bottom: 50px;
+        }
+
+        /* Scroll to Top Button */
+        #scroll-top-btn {
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        #scroll-top-btn.show {
+            opacity: 1;
+            visibility: visible;
+        }
     </style>
 </head>
-<body class="bg-slate-900 text-slate-300">
+<body class="bg-[#0B1121] text-slate-300 font-sans antialiased selection:bg-indigo-500/30 selection:text-indigo-200 relative">
+
+    <!-- Noise Texture Overlay -->
+    <div class="fixed inset-0 pointer-events-none z-0 opacity-20 bg-noise"></div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="bg-slate-800 border border-indigo-500/30 flex items-center justify-center gap-2">
+        <i data-lucide="check-circle" class="text-emerald-400 w-5 h-5"></i>
+        <span id="toast-message">Copied to clipboard!</span>
+    </div>
+
+    <!-- Scroll To Top Button -->
+    <button id="scroll-top-btn" class="fixed bottom-8 right-8 z-40 p-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-full shadow-lg border border-white/10 transform hover:-translate-y-1 transition-all" aria-label="Scroll to top">
+        <i data-lucide="arrow-up" class="w-6 h-6"></i>
+    </button>
 
     <!-- Navigation -->
-    <header class="sticky top-0 z-50 border-b border-slate-800">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold text-white">Tabitha Khadse</a>
-            <div id="nav-links" class="hidden md:flex items-center space-x-8">
-                <a href="#articles" data-nav-id="articles" class="nav-link text-slate-300 font-medium">Articles</a>
-                <a href="#about" data-nav-id="about" class="nav-link text-slate-300 font-medium">About</a>
-                <a href="https://code.tabitha.dev/" target="_blank" class="nav-link text-slate-300 font-medium">Portfolio</a>
-                <a href="#newsletter" data-nav-id="newsletter" class="nav-link text-slate-300 font-medium">Newsletter</a>
-            </div>
+    <header class="fixed w-full top-0 z-50 glass-header transition-all duration-300">
+        <div class="container mx-auto px-6 h-20 flex justify-between items-center relative z-20">
+            <a href="#" class="flex items-center gap-2 group">
+                <div class="w-8 h-8 bg-indigo-500/20 rounded-lg flex items-center justify-center border border-indigo-500/30 group-hover:bg-indigo-500/30 transition-colors">
+                    <span class="text-lg">✍️</span>
+                </div>
+                <span class="text-xl font-heading font-bold text-white tracking-tight">Tabitha.dev</span>
+            </a>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="#articles" class="text-sm font-medium hover:text-white transition-colors">Writing</a>
+                <a href="#about" class="text-sm font-medium hover:text-white transition-colors">About</a>
+                <a href="https://tabitha-dev.github.io/portfolio/" target="_blank" class="text-sm font-medium hover:text-white transition-colors">Projects</a>
+            </nav>
+
             <div class="flex items-center gap-4">
-                <a href="mailto:tabitha@ieee.org" class="hidden md:inline-block bg-indigo-500 text-white font-medium px-5 py-2 rounded-lg hover:bg-indigo-600 transition-colors">Contact Me</a>
-                <button id="mobile-menu-button" class="md:hidden text-white">
-                    <i data-lucide="menu"></i>
+                <a href="https://code.tabitha.dev/code/Schedule-a-Meeting/index.html" target="_blank" class="hidden md:flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full text-sm font-medium text-white transition-all">
+                    <span>Let's Talk</span>
+                    <i data-lucide="calendar" class="w-4 h-4 text-gray-400"></i>
+                </a>
+                <button id="mobile-menu-button" class="md:hidden p-2 text-white hover:bg-white/5 rounded-lg">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
                 </button>
             </div>
-        </nav>
-         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 bg-slate-900/95">
-            <a href="#articles" class="block py-2 nav-link text-slate-300 font-medium">Articles</a>
-            <a href="#about" class="block py-2 nav-link text-slate-300 font-medium">About</a>
-            <a href="https://code.tabitha.dev/" target="_blank" class="block py-2 nav-link text-slate-300 font-medium">Portfolio</a>
-            <a href="#newsletter" class="block py-2 nav-link text-slate-300 font-medium">Newsletter</a>
-            <a href="mailto:tabitha@ieee.org" class="block mt-2 bg-indigo-500 text-white font-medium px-5 py-2 rounded-lg hover:bg-indigo-600 transition-colors text-center">Contact Me</a>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden border-t border-white/5 bg-[#0B1121]/95 backdrop-blur-xl relative z-20 shadow-xl">
+            <div class="flex flex-col p-6 gap-4">
+                <a href="#articles" class="text-lg font-medium text-white border-b border-white/5 pb-2">Writing</a>
+                <a href="#about" class="text-lg font-medium text-white border-b border-white/5 pb-2">About</a>
+                <a href="https://tabitha-dev.github.io/portfolio/" target="_blank" class="text-lg font-medium text-white border-b border-white/5 pb-2">Projects</a>
+                <a href="https://code.tabitha.dev/code/Schedule-a-Meeting/index.html" target="_blank" class="text-lg font-medium text-indigo-400 font-bold">Schedule Meeting →</a>
+            </div>
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main role="main" class="container mx-auto px-6 py-12 md:py-20">
+    <main class="relative overflow-hidden z-10">
+        <!-- Background Elements -->
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[800px] bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(99,102,241,0.15),rgba(255,255,255,0)) pointer-events-none"></div>
+        <div class="absolute top-20 right-0 w-[500px] h-[500px] bg-indigo-600/10 rounded-full blur-[100px] -z-10 hero-glow"></div>
+        <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[100px] -z-10 hero-glow" style="animation-delay: 2s;"></div>
 
         <!-- Hero Section -->
-        <section id="hero" class="text-center scroll-animate">
-             <div class="absolute inset-0 -z-10 h-full w-full bg-slate-900 bg-[linear-gradient(to_right,rgba(128,128,128,0.1)_1px,transparent_1px),linear-gradient(to_bottom,rgba(128,128,128,0.1)_1px,transparent_1px)] bg-[size:24px_24px]"><div class="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-indigo-800 opacity-30 blur-[100px]"></div></div>
-            <h1 class="text-4xl md:text-6xl font-bold text-white leading-tight">Navigating the Next Wave of Technology</h1>
-            <p class="mt-6 max-w-2xl mx-auto text-lg text-slate-300">Welcome to my digital notebook. I document my journey of learning, building, and staying current in the fast-paced world of tech and AI.</p>
-            <div class="mt-8 flex justify-center gap-4">
-                <a href="#articles" class="bg-indigo-500 text-white font-medium px-8 py-3 rounded-lg hover:bg-indigo-600 transition-colors">Explore My Work</a>
-                <a href="#newsletter" class="bg-slate-800 border border-slate-700 text-slate-200 font-medium px-8 py-3 rounded-lg hover:bg-slate-700 transition-colors">Join Newsletter</a>
+        <section class="pt-36 pb-12 md:pt-48 md:pb-16 px-6">
+            <div class="container mx-auto max-w-5xl text-center">
+                
+                <!-- Latest Post Badge (NEW) -->
+                <a href="https://github.com/tabitha-dev/weather-outfit-advisor" target="_blank" class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-slate-300 text-xs font-medium mb-8 hover:bg-white/10 hover:border-indigo-500/30 transition-all group fade-in-up">
+                    <span class="flex h-2 w-2 relative">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+                    </span>
+                    <span class="font-bold text-white">New:</span> Weather Outfit ADK Multi-Agent System
+                    <i data-lucide="arrow-right" class="w-3 h-3 group-hover:translate-x-0.5 transition-transform"></i>
+                </a>
+                
+                <h1 class="text-5xl md:text-7xl font-heading font-bold tracking-tight mb-8 leading-[1.1] fade-in-up" style="transition-delay: 100ms;">
+                    <span class="text-white">Notes on AI,</span><br/>
+                    <span class="text-gradient-accent">Architecture & Code</span>
+                </h1>
+                
+                <p class="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed fade-in-up" style="transition-delay: 200ms;">
+                    Documenting my work in full-stack engineering, multi-agent systems, and building reliable software for the real world.
+                </p>
+
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4 fade-in-up" style="transition-delay: 300ms;">
+                    <a href="#articles" class="w-full sm:w-auto px-8 py-4 bg-white text-slate-900 rounded-full font-semibold hover:bg-indigo-50 transition-colors flex items-center justify-center gap-2 shadow-[0_0_20px_-5px_rgba(255,255,255,0.3)] hover:shadow-[0_0_25px_-5px_rgba(255,255,255,0.5)]">
+                        Start Reading <i data-lucide="book-open" class="w-4 h-4"></i>
+                    </a>
+                    <a href="https://github.com/tabitha-dev" target="_blank" class="w-full sm:w-auto px-8 py-4 bg-white/5 border border-white/10 text-white rounded-full font-semibold hover:bg-white/10 transition-colors flex items-center justify-center gap-2">
+                        <i data-lucide="github" class="w-4 h-4"></i> GitHub Profile
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Infinite Tech Stack Marquee -->
+        <div class="py-10 border-y border-white/5 bg-white/[0.01] mb-12 overflow-hidden relative marquee-mask fade-in-up" style="transition-delay: 400ms;">
+            <div class="flex w-max animate-marquee">
+                <!-- Content repeated twice for seamless loop -->
+                <div class="flex items-center gap-12 px-6">
+                    <span class="text-2xl font-heading font-bold text-slate-500 flex items-center gap-2"><i data-lucide="atom" class="w-6 h-6"></i> React</span>
+                    <span class="text-2xl font-heading font-bold text-slate-500 flex items-center gap-2"><i data-lucide="file-code-2" class="w-6 h-6"></i> TypeScript</span>
+                    <span class="text-2xl font-heading font-bold text-slate-500 flex items-center gap-2"><i data-lucide="server" class="w-6 h-6"></i> Node.js</span>
+                    <span class="text-2xl font-heading font-bold text-slate-500 flex items-center gap-2"><i data-lucide="database" class="w-6 h-6"></i> PostgreSQL</span>
+                    <span class="text-2xl font-heading font-bold text-slate-500 flex items-center gap-2"><i data-lucide="cloud" class="w-6 h-6"></i> AWS</span>
+                    <span class="text-2xl font-heading font-bold text-slate-500 flex items-center gap-2"><i data-lucide="box" class="w-6 h-6"></i> Docker</span>
+                    <span class="text-2xl font-heading font-bold text-slate-500 flex items-center gap-2"><i data-lucide="terminal" class="w-6 h-6"></i> Python</span>
+                    <span class="text-2xl font-heading font-bold text-slate-500 flex items-center gap-2"><i data-lucide="brain-circuit" class="w-6 h-6"></i> AI Agents</span>
+                    <span class="text-2xl font-heading font-bold text-slate-500 flex items-center gap-2"><i data-lucide="code" class="w-6 h-6"></i> Tailwind</span>
+                </div>
+                <div class="flex items-center gap-12 px-6">
+                    <span class="text-2xl font-heading font-bold text-slate-500 flex items-center gap-2"><i data-lucide="atom" class="w-6 h-6"></i> React</span>
+                    <span class="text-2xl font-heading font-bold text-slate-500 flex items-center gap-2"><i data-lucide="file-code-2" class="w-6 h-6"></i> TypeScript</span>
+                    <span class="text-2xl font-heading font-bold text-slate-500 flex items-center gap-2"><i data-lucide="server" class="w-6 h-6"></i> Node.js</span>
+                    <span class="text-2xl font-heading font-bold text-slate-500 flex items-center gap-2"><i data-lucide="database" class="w-6 h-6"></i> PostgreSQL</span>
+                    <span class="text-2xl font-heading font-bold text-slate-500 flex items-center gap-2"><i data-lucide="cloud" class="w-6 h-6"></i> AWS</span>
+                    <span class="text-2xl font-heading font-bold text-slate-500 flex items-center gap-2"><i data-lucide="box" class="w-6 h-6"></i> Docker</span>
+                    <span class="text-2xl font-heading font-bold text-slate-500 flex items-center gap-2"><i data-lucide="terminal" class="w-6 h-6"></i> Python</span>
+                    <span class="text-2xl font-heading font-bold text-slate-500 flex items-center gap-2"><i data-lucide="brain-circuit" class="w-6 h-6"></i> AI Agents</span>
+                    <span class="text-2xl font-heading font-bold text-slate-500 flex items-center gap-2"><i data-lucide="code" class="w-6 h-6"></i> Tailwind</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Technical Expertise / Categorized Skills Section -->
+        <section class="container mx-auto px-6 py-12 border-b border-white/5">
+            <div class="text-center mb-12">
+                <h2 class="text-2xl font-heading font-bold text-white">Topics & Tech</h2>
+                <p class="text-slate-400 mt-2">The tools and concepts I write about.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Domain 1: AI & Data -->
+                <div class="bg-white/5 p-6 rounded-2xl border border-white/5 hover:border-indigo-500/30 transition-colors">
+                    <div class="w-12 h-12 bg-indigo-500/20 rounded-lg flex items-center justify-center mb-4 text-indigo-400">
+                        <i data-lucide="brain-circuit" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">AI & Intelligent Systems</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 rounded-md bg-[#0B1121] border border-white/10 text-sm text-slate-300">OpenAI API</span>
+                        <span class="px-3 py-1 rounded-md bg-[#0B1121] border border-white/10 text-sm text-slate-300">LangChain</span>
+                        <span class="px-3 py-1 rounded-md bg-[#0B1121] border border-white/10 text-sm text-slate-300">Google ADK</span>
+                        <span class="px-3 py-1 rounded-md bg-[#0B1121] border border-white/10 text-sm text-slate-300">Gemini</span>
+                        <span class="px-3 py-1 rounded-md bg-[#0B1121] border border-white/10 text-sm text-slate-300">RAG Pipelines</span>
+                        <span class="px-3 py-1 rounded-md bg-[#0B1121] border border-white/10 text-sm text-slate-300">Model Context Protocol</span>
+                    </div>
+                </div>
+
+                <!-- Domain 2: Full Stack Engineering -->
+                <div class="bg-white/5 p-6 rounded-2xl border border-white/5 hover:border-purple-500/30 transition-colors">
+                    <div class="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center mb-4 text-purple-400">
+                        <i data-lucide="layers" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">Full Stack Engineering</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 rounded-md bg-[#0B1121] border border-white/10 text-sm text-slate-300">React / Next.js</span>
+                        <span class="px-3 py-1 rounded-md bg-[#0B1121] border border-white/10 text-sm text-slate-300">TypeScript</span>
+                        <span class="px-3 py-1 rounded-md bg-[#0B1121] border border-white/10 text-sm text-slate-300">Node.js</span>
+                        <span class="px-3 py-1 rounded-md bg-[#0B1121] border border-white/10 text-sm text-slate-300">Tailwind CSS</span>
+                        <span class="px-3 py-1 rounded-md bg-[#0B1121] border border-white/10 text-sm text-slate-300">PostgreSQL</span>
+                        <span class="px-3 py-1 rounded-md bg-[#0B1121] border border-white/10 text-sm text-slate-300">IndexedDB</span>
+                    </div>
+                </div>
+
+                <!-- Domain 3: Infrastructure & Tools -->
+                <div class="bg-white/5 p-6 rounded-2xl border border-white/5 hover:border-emerald-500/30 transition-colors">
+                    <div class="w-12 h-12 bg-emerald-500/20 rounded-lg flex items-center justify-center mb-4 text-emerald-400">
+                        <i data-lucide="container" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4">DevOps & Cloud</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="px-3 py-1 rounded-md bg-[#0B1121] border border-white/10 text-sm text-slate-300">Docker</span>
+                        <span class="px-3 py-1 rounded-md bg-[#0B1121] border border-white/10 text-sm text-slate-300">AWS</span>
+                        <span class="px-3 py-1 rounded-md bg-[#0B1121] border border-white/10 text-sm text-slate-300">Google Cloud</span>
+                        <span class="px-3 py-1 rounded-md bg-[#0B1121] border border-white/10 text-sm text-slate-300">Git / CI/CD</span>
+                        <span class="px-3 py-1 rounded-md bg-[#0B1121] border border-white/10 text-sm text-slate-300">Linux</span>
+                        <span class="px-3 py-1 rounded-md bg-[#0B1121] border border-white/10 text-sm text-slate-300">System Design</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section class="container mx-auto px-6 py-8 border-b border-white/5">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-8 bg-white/5 p-8 rounded-2xl border border-white/5">
+                <div class="text-center md:text-left">
+                    <h2 class="text-2xl font-heading font-bold text-white">Education</h2>
+                    <p class="text-slate-400 mt-1">Foundational knowledge & continuous learning.</p>
+                </div>
+                
+                <div class="flex flex-col sm:flex-row gap-6 w-full md:w-auto">
+                    <!-- Degree 1 -->
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-indigo-500/20 rounded-full flex items-center justify-center text-indigo-400 shrink-0">
+                            <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <div class="text-white font-bold">Bachelor of Science</div>
+                            <div class="text-slate-400 text-sm">Computer Science</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Vertical Separator (Desktop only) -->
+                    <div class="hidden sm:block w-px h-12 bg-white/10"></div>
+
+                    <!-- Cert/Degree 2 -->
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-emerald-500/20 rounded-full flex items-center justify-center text-emerald-400 shrink-0">
+                            <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <div class="text-white font-bold">Master of Science</div>
+                            <div class="text-slate-400 text-sm">Information Technology</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
         <!-- Articles Section -->
-        <section id="articles" class="mt-20 md:mt-28 scroll-animate">
-            <h2 class="text-3xl font-bold text-white text-center">Featured Articles</h2>
-            
-            <!-- Filter Buttons -->
-            <div id="filter-buttons" class="mt-8 flex justify-center gap-2 md:gap-4 flex-wrap">
-                <button class="filter-btn bg-indigo-500 text-white px-4 py-2 text-sm font-medium rounded-full active" data-filter="all">All</button>
-                <button class="filter-btn bg-slate-700 text-slate-300 px-4 py-2 text-sm font-medium rounded-full" data-filter="linkedin">From LinkedIn</button>
-                <button class="filter-btn bg-slate-700 text-slate-300 px-4 py-2 text-sm font-medium rounded-full" data-filter="blog">Original Content</button>
-                <button class="filter-btn bg-slate-700 text-slate-300 px-4 py-2 text-sm font-medium rounded-full" data-filter="newsletter">Newsletter</button>
+        <section id="articles" class="container mx-auto px-6 py-12">
+            <div class="flex flex-col md:flex-row md:items-center justify-between mb-10 gap-6">
+                <div>
+                    <h2 class="text-3xl font-heading font-bold text-white">Recent Posts</h2>
+                    <p class="text-slate-400 mt-2">Projects, technical deep dives, and engineering analysis.</p>
+                </div>
+                
+                <!-- Filter & Search Controls -->
+                <div class="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
+                    <div class="relative">
+                        <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400"></i>
+                        <input type="text" id="search-input" placeholder="Search..." class="w-full sm:w-64 bg-white/5 border border-white/10 rounded-xl pl-10 pr-4 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all">
+                    </div>
+                    <div class="flex bg-white/5 p-1 rounded-xl border border-white/5 self-start md:self-auto">
+                        <button class="filter-btn px-4 py-2 rounded-lg text-sm font-medium text-white bg-white/10 shadow-sm transition-all" data-filter="all">All</button>
+                        <button class="filter-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white transition-all" data-filter="blog">Build Logs</button>
+                        <button class="filter-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white transition-all" data-filter="linkedin">Essays</button>
+                    </div>
+                </div>
             </div>
 
-            <!-- Bento Grid Layout -->
-            <div id="article-grid" class="mt-12 grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 auto-rows-[minmax(250px,_auto)]">
-                <!-- Articles dynamically populated here -->
+            <!-- Grid Layout -->
+            <div id="article-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Articles injected via JS -->
+            </div>
+
+            <div class="mt-12 text-center">
+                <a href="https://www.linkedin.com/in/tabitha-dev/" target="_blank" class="inline-flex items-center gap-2 text-indigo-400 hover:text-indigo-300 font-medium border-b border-transparent hover:border-indigo-300 transition-all">
+                    View all updates on LinkedIn <i data-lucide="external-link" class="w-4 h-4"></i>
+                </a>
             </div>
         </section>
-        
+
         <!-- About Section -->
-        <section id="about" class="mt-20 md:mt-28 scroll-animate">
-            <div class="bg-slate-800 p-8 md:p-16 rounded-2xl border border-slate-700">
-                <div class="grid md:grid-cols-3 gap-12 items-center">
-                    <div class="md:col-span-1">
-                        <img src="https://media.licdn.com/dms/image/v2/C4E03AQH2BHDM6VEFhQ/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1533136976507?e=1755129600&v=beta&t=fKbfd5jFAXkxl-7M3vaSA9JVLXAikBD2doJxBu-jfnE" alt="Headshot of Tabitha Khadse" loading="lazy" class="rounded-full mx-auto w-48 h-48 md:w-full md:h-auto object-cover border-4 border-slate-700 shadow-lg">
+        <section id="about" class="py-24 px-6 mt-12 bg-gradient-to-b from-[#0f172a] to-[#0B1121] border-y border-white/5 relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-full bg-noise opacity-20 pointer-events-none"></div>
+            <div class="container mx-auto max-w-6xl relative z-10">
+                <div class="grid lg:grid-cols-2 gap-16 items-center">
+                    <div class="relative order-2 lg:order-1">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-indigo-500 to-purple-500 rounded-2xl blur-2xl opacity-20"></div>
+                        <div class="relative border border-white/10 bg-[#1e293b]/50 backdrop-blur-sm p-8 rounded-2xl">
+                            <h3 class="text-2xl font-heading font-bold text-white mb-6">My Philosophy</h3>
+                            <div class="space-y-6 text-slate-300 leading-relaxed">
+                                <p>
+                                    I believe <strong>code is a liability, functionality is an asset.</strong> I prioritize shipping robust, maintainable systems over chasing the latest hype cycle.
+                                </p>
+                                <p>
+                                    My operational background ensures I build for the real world, handling edge cases, ensuring scalability, and focusing on the <strong class="text-indigo-400">20% of engineering that drives 80% of the business value.</strong>
+                                </p>
+                                <p>
+                                    Whether it's integrating LLMs or optimizing database queries, my goal is always the same: deliver reliable software that solves actual user problems.
+                                </p>
+                            </div>
+                            <div class="mt-8 pt-8 border-t border-white/5">
+                                <div class="flex gap-4">
+                                    <a href="https://tabitha-dev.github.io/portfolio/" target="_blank" class="text-sm font-semibold text-white hover:text-indigo-400 transition-colors">View Portfolio →</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="md:col-span-2">
-                        <h2 class="text-3xl font-bold text-white">About Me</h2>
-                        <p class="mt-4 text-lg text-slate-300">My passion is staying on the cutting edge of a tech landscape that reinvents itself every six months. As a full-stack developer, I thrive on turning the latest advancements in AI and frontend frameworks into practical, real-world solutions.</p>
-                        <p class="mt-4 text-slate-400">My background in healthcare operations taught me to find the 20% of work that delivers 80% of the impact. I carry that lesson into my development process, where I focus on building simple, helpful tools that solve real problems. This site is my digital notebook for that journey, where I document what I'm learning and share what I've built.</p>
+                    
+                    <div class="order-1 lg:order-2 flex justify-center lg:justify-end">
+                        <div class="relative group">
+                            <div class="absolute -inset-4 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full blur-lg opacity-30 group-hover:opacity-50 transition-opacity duration-500"></div>
+                            <img src="https://media.licdn.com/dms/image/v2/D5603AQHQr8TQBBauYQ/profile-displayphoto-crop_800_800/B56ZlVG42QHAAI-/0/1758069493535?e=1765411200&v=beta&t=GG3dW6TEaPZ_lk648LFVonLEPWXHMvZ0yovwf-vdJso" alt="Tabitha Khadse" class="relative w-64 h-64 lg:w-80 lg:h-80 rounded-full object-cover border-4 border-[#0B1121] shadow-2xl z-10 grayscale hover:grayscale-0 transition-all duration-500">
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Newsletter Signup Section -->
-        <section id="newsletter" class="mt-20 md:mt-28 bg-indigo-500 text-white rounded-2xl p-8 md:p-16 text-center scroll-animate overflow-hidden relative">
-            <div class="absolute -bottom-1/2 -right-1/4 w-80 h-80 rounded-full bg-indigo-800/50 blur-3xl"></div>
-            <div class="absolute -top-1/2 -left-1/4 w-80 h-80 rounded-full bg-indigo-800/50 blur-3xl"></div>
-             <div id="newsletter-content" class="max-w-xl mx-auto relative">
-                <h2 class="text-3xl font-bold">Stay on the Cutting Edge</h2>
-                <p class="mt-4 opacity-80">Join my inner circle to get my latest findings, project updates, and exclusive content on navigating the future of tech.</p>
-                <form id="newsletter-form" class="mt-8 flex flex-col md:flex-row gap-4 max-w-md mx-auto">
-                    <input type="email" placeholder="Enter your email" class="w-full px-5 py-3 rounded-lg text-white bg-slate-800 placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-indigo-500 transition" required>
-                    <button type="submit" class="bg-indigo-900 text-white font-medium px-8 py-3 rounded-lg hover:bg-white hover:text-indigo-700 transition-colors">Subscribe Now</button>
-                </form>
-             </div>
-        </section>
     </main>
 
     <!-- Footer -->
-    <footer class="bg-slate-800 border-t border-slate-700">
-        <div class="container mx-auto px-6 py-12">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Column 1: Brand -->
-                <div class="text-center md:text-left">
-                    <h3 class="text-lg font-bold text-white">Tabitha Khadse</h3>
-                    <p class="mt-2 text-sm text-slate-400">Full-Stack Developer exploring the future of AI and technology.</p>
-                </div>
-                <!-- Column 2: Quick Links -->
-                 <div class="text-center md:text-left">
-                    <h4 class="font-semibold text-white">Quick Links</h4>
-                    <ul class="mt-4 space-y-2">
-                        <li><a href="#articles" class="text-sm text-slate-400 hover:text-indigo-400">Articles</a></li>
-                        <li><a href="#about" class="text-sm text-slate-400 hover:text-indigo-400">About</a></li>
-                        <li><a href="https://code.tabitha.dev/" target="_blank" class="text-sm text-slate-400 hover:text-indigo-400">Portfolio</a></li>
-                        <li><a href="#newsletter" class="text-sm text-slate-400 hover:text-indigo-400">Newsletter</a></li>
-                    </ul>
-                </div>
-                 <!-- Column 3: Social -->
-                 <div class="text-center md:text-left">
-                    <h4 class="font-semibold text-white">Connect</h4>
-                     <div class="flex justify-center md:justify-start gap-6 mt-4">
-                        <a href="https://www.linkedin.com/in/tabitha-dev/" target="_blank" aria-label="LinkedIn Profile"><i data-lucide="linkedin" class="text-slate-400 hover:text-indigo-400"></i></a>
-                        <a href="https://github.com/tabitha-dev" target="_blank" aria-label="GitHub Profile"><i data-lucide="github" class="text-slate-400 hover:text-indigo-400"></i></a>
-                        <a href="mailto:tabitha@ieee.org" aria-label="Email"><i data-lucide="mail" class="text-slate-400 hover:text-indigo-400"></i></a>
-                    </div>
-                </div>
+    <footer class="border-t border-white/5 py-12 bg-[#0f172a] relative">
+         <div class="absolute top-0 left-0 w-full h-full bg-noise opacity-20 pointer-events-none"></div>
+        <div class="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6 relative z-10">
+            <div class="text-center md:text-left">
+                <span class="block font-heading font-bold text-xl text-white">Tabitha Khadse</span>
+                <span class="text-sm text-slate-500">© 2025. Built with AI & Passion.</span>
             </div>
-            <div class="mt-12 border-t border-slate-700 pt-8 text-center text-sm text-slate-400">
-                <p>&copy; 2025 Tabitha Khadse. All Rights Reserved.</p>
+            
+            <div class="flex items-center gap-6">
+                <a href="https://www.linkedin.com/in/tabitha-dev/" target="_blank" class="text-slate-400 hover:text-white transition-colors">
+                    <i data-lucide="linkedin" class="w-5 h-5"></i>
+                </a>
+                <a href="https://github.com/tabitha-dev" target="_blank" class="text-slate-400 hover:text-white transition-colors">
+                    <i data-lucide="github" class="w-5 h-5"></i>
+                </a>
+                <a href="mailto:tabitha@ieee.org" class="text-slate-400 hover:text-white transition-colors">
+                    <i data-lucide="mail" class="w-5 h-5"></i>
+                </a>
             </div>
         </div>
     </footer>
 
     <script>
+        // Initialize Icons
         lucide.createIcons();
-        
+
+        // Article Data - with DATES
         const articles = [
-            { title: "From Disconnected to Scalable: Building an AI Integration Hub with LangChain + MCP", summary: "A scalable architectural pattern for enterprise AI integration using LangChain and a Model Context Protocol (MCP) approach.", link: "https://www.linkedin.com/pulse/from-disconnected-scalable-building-ai-integration-hub-tabitha-k-7vpbc/", category: "linkedin"},
-            { title: "How to Automate Email Outreach for Free", summary: "A practical guide on setting up automated email outreach campaigns using free tools and simple scripts.", link: "https://www.linkedin.com/pulse/how-automate-email-outreach-free-tabitha-k-t61sc/", category: "linkedin"},
-            { title: "How to Crack Any DSA Problem: A Pattern-Driven Guide with Code and Context", summary: "Learn a systematic, pattern-based approach to deconstruct and solve any Data Structures and Algorithms problem.", link: "https://www.linkedin.com/pulse/how-crack-any-dsa-problem-pattern-driven-guide-code-context-tabitha-k-wwvkc/", category: "linkedin"},
-            { title: "OpenAI’s Responses API: Empowering Developers with Advanced AI Agent Capabilities", summary: "A deep dive into using OpenAI's Responses API to create more sophisticated and context-aware AI agents.", link: "https://www.linkedin.com/pulse/openais-responses-api-empowering-developers-advanced-ai-tabitha-k-gegbc/", category: "linkedin"},
-            { title: "How to Use Model Context Protocol (MCP) and Agent-to-Agent (A2A) for Smarter AI Workflows", summary: "An exploration of MCP and Agent-to-Agent (A2A) communication for building more intelligent and collaborative AI systems.", link: "https://www.linkedin.com/pulse/how-use-model-context-protocol-mcp-agent-to-agent-a2a-tabitha-k-kw05c/", category: "linkedin"},
-            { title: "Supercharge Your Productivity with AI", summary: "Practical tips and AI tools that can be implemented immediately to boost efficiency and focus in your daily workflow.", link: "https://www.linkedin.com/pulse/supercharge-your-productivity-ai-tabitha-k-frosc/", category: "linkedin"},
-            { title: "The Job Market Looks Different in 2025. So Do the Scams.", summary: "An analysis of new job market trends and a warning about the sophisticated scams targeting job seekers.", link: "https://www.linkedin.com/pulse/job-market-looks-different-2025-so-do-scams-tabitha-k-lqffc/", category: "linkedin"},
-            { title: "AI Is Entering a New Phase in 2025", summary: "An overview of the upcoming evolutionary steps for artificial intelligence and what to expect in the near future.", link: "https://www.linkedin.com/pulse/ai-entering-new-phase-2025-tabitha-k-iwryc/", category: "linkedin"},
-            { title: "How to Train Your Own Large Language Model (LLM) from Scratch", summary: "A step-by-step guide on the process and requirements for training a custom Large Language Model from the ground up.", link: "https://www.linkedin.com/pulse/how-train-your-own-large-language-model-llm-from-scratch-tabitha-k-r7tzc/", category: "linkedin"},
-            { title: "Mastering Automation in 2025: The Developer's Ultimate Cheat Sheet", summary: "A comprehensive cheat sheet for developers on the latest tools, techniques, and best practices for mastering automation.", link: "https://www.linkedin.com/pulse/mastering-automation-2025-developers-ultimate-cheat-sheet-tabitha-k-hj9mc/", category: "linkedin"},
-            { title: "Traditional Automation vs. AI Agents: Which One Should Developers Use?", summary: "A developer-focused look at the trade-offs between traditional automation scripts and modern AI agents.", link: "https://www.linkedin.com/pulse/traditional-automation-vs-ai-agents-which-one-should-developers-k-frfwc/", category: "linkedin"},
-            { title: "AI Agents vs. Traditional Automation: Which One Does Your Business Need?", summary: "A business-focused comparison of AI agents and traditional automation to help decide the right approach for your company's needs.", link: "https://www.linkedin.com/pulse/ai-agents-vs-traditional-automation-which-one-does-your-tabitha-k-uv6tf/", category: "linkedin"}
+            { 
+                title: "Weather Outfit ADK", 
+                summary: "A production-ready multi-agent AI system built with Google's Agent Development Kit (ADK). Orchestrates 5 specialized agents using Gemini 2.0 to provide personalized, activity-aware outfit recommendations based on real-time weather.", 
+                link: "https://github.com/tabitha-dev/weather-outfit-advisor", 
+                category: "blog", 
+                readTime: "Case Study", 
+                date: "Oct 2025",
+                tags: ["Google ADK", "Multi-Agent", "Gemini 2.0", "Python"]
+            },
+            { 
+                title: "Voice to Asana Tasks", 
+                summary: "A production-ready voice tool that creates Asana tasks via API. Features real-time speech recognition and intelligent task parsing.", 
+                link: "https://tabitha-dev.github.io/voice-to-asana-tasks/", 
+                category: "blog", 
+                readTime: "Interactive", 
+                date: "Sep 2025",
+                tags: ["React", "Web Speech API", "Asana"]
+            },
+            { 
+                title: "Building an AI Integration Hub", 
+                summary: "A scalable architectural pattern for enterprise AI integration using LangChain and a Model Context Protocol (MCP) approach.", 
+                link: "https://www.linkedin.com/pulse/from-disconnected-scalable-building-ai-integration-hub-tabitha-k-7vpbc/", 
+                category: "linkedin", 
+                readTime: "8 min read", 
+                date: "Aug 2025",
+                tags: ["Architecture", "MCP"]
+            },
+            { 
+                title: "Dashcam Viewer", 
+                summary: "A fully offline dashcam player with dual-camera support and calendar-based browsing. Upload footage, view front/rear feeds side-by-side, and manage locally.", 
+                link: "https://tabitha-dev.github.io/Dashcam_Viewer", 
+                category: "blog", 
+                readTime: "App", 
+                date: "Aug 2025",
+                tags: ["JavaScript", "IndexedDB", "Tailwind"]
+            },
+            { 
+                title: "Pantry Pal", 
+                summary: "A smart pantry manager to track inventory, generate recipes based on available ingredients, and auto-build shopping lists with full offline support.", 
+                link: "https://tabitha-dev.github.io/Pantry_Pal", 
+                category: "blog", 
+                readTime: "App", 
+                date: "Jul 2025",
+                tags: ["React", "IndexedDB", "Chart.js"]
+            },
+            { 
+                title: "Family Hub", 
+                summary: "A local-first dashboard for organizing family life including meal plans, chores, events, and grocery lists with complete privacy and no accounts required.", 
+                link: "https://tabitha-dev.github.io/Family_Hub", 
+                category: "blog", 
+                readTime: "App", 
+                date: "Jul 2025",
+                tags: ["LocalFirst", "Tailwind", "Privacy"]
+            },
+            { 
+                title: "Medical Practice Dashboard", 
+                summary: "A simulated medical practice management system for operations, patient data, appointments, and analytics within a responsive UI.", 
+                link: "https://tabitha-dev.github.io/Medical-Practice-Dashboard", 
+                category: "blog", 
+                readTime: "Dashboard", 
+                date: "Jun 2025",
+                tags: ["HTML5", "Tailwind", "Simulation"]
+            },
+            { 
+                title: "Healthcare RCM Analytics", 
+                summary: "A simulated Revenue Cycle Management (RCM) dashboard for healthcare providers to analyze financial performance, KPIs, and patient accounts.", 
+                link: "https://tabitha-dev.github.io/RCM-Dashboard-Analytics", 
+                category: "blog", 
+                readTime: "Analytics", 
+                date: "Jun 2025",
+                tags: ["Data Viz", "Finance", "UI"]
+            },
+            { 
+                title: "Climate Intelligence Hub", 
+                summary: "A climate awareness dashboard that visualizes air quality data, CO₂ trends, and global climate news using public APIs.", 
+                link: "https://tabitha-dev.github.io/Climate_Intelligence_Hub", 
+                category: "blog", 
+                readTime: "Dashboard", 
+                date: "May 2025",
+                tags: ["API", "Chart.js", "Climate"]
+            },
+            { 
+                title: "Satellites Orbiting Earth", 
+                summary: "3D visualization of satellite orbits utilizing NASA's API and Three.js for immersive spatial data representation.", 
+                link: "https://tabitha-dev.github.io/code/TLE/index.html", 
+                category: "blog", 
+                readTime: "3D Demo", 
+                date: "Apr 2025",
+                tags: ["Three.js", "NASA API", "WebGL"]
+            },
+            { 
+                title: "Space Invaders Game", 
+                summary: "A classic arcade Space Invaders game demonstrating game development logic and canvas rendering with vanilla JavaScript.", 
+                link: "https://tabitha-dev.github.io/code/Space-invaders/index.html", 
+                category: "blog", 
+                readTime: "Game", 
+                date: "Apr 2025",
+                tags: ["Game Dev", "JS", "Canvas"]
+            },
+            { 
+                title: "3D Resume Cube", 
+                summary: "An interactive 3D resume cube showcasing profile links and skills in a gamified interface.", 
+                link: "https://tabitha-dev.github.io/code/resume-cube/index.html", 
+                category: "blog", 
+                readTime: "Interactive", 
+                date: "Mar 2025",
+                tags: ["CSS3D", "Animation"]
+            },
+            { 
+                title: "Space Weather Dashboard", 
+                summary: "Real-time space weather data visualization powered by NASA's open APIs, tracking solar events and phenomena.", 
+                link: "https://tabitha-dev.github.io/code/Nasa-Space-Weather-Database-Of-Notifications/index.html", 
+                category: "blog", 
+                readTime: "Dashboard", 
+                date: "Mar 2025",
+                tags: ["NASA", "API", "Data"]
+            },
+            { 
+                title: "NASA Media Gallery", 
+                summary: "Searchable gallery of space-related media using NASA's image API.", 
+                link: "https://tabitha-dev.github.io/code/NASA-Media-Gallery/index.html", 
+                category: "blog", 
+                readTime: "Gallery", 
+                date: "Feb 2025",
+                tags: ["NASA", "Media", "Search"]
+            },
+            { 
+                title: "Vue.js Todo List", 
+                summary: "A persistent task management app implemented with Vue.js and LocalStorage for data retention.", 
+                link: "https://tabitha-dev.github.io/code/ToDo-2/index.html", 
+                category: "blog", 
+                readTime: "App", 
+                date: "Feb 2025",
+                tags: ["Vue.js", "LocalStorage"]
+            },
+            { 
+                title: "API Recipe Finder", 
+                summary: "Ingredient-based recipe search engine using the Tasty API to fetch and display cooking instructions.", 
+                link: "https://tabitha-dev.github.io/code/API-Recipe-Finder/index.html", 
+                category: "blog", 
+                readTime: "App", 
+                date: "Jan 2025",
+                tags: ["API", "Search", "UI"]
+            },
+            { 
+                title: "Automate Email Outreach for Free", 
+                summary: "A practical guide on setting up automated email outreach campaigns using free tools and simple scripts.", 
+                link: "https://www.linkedin.com/pulse/how-automate-email-outreach-free-tabitha-k-t61sc/", 
+                category: "linkedin", 
+                readTime: "5 min read", 
+                date: "Jan 2025",
+                tags: ["Automation", "Growth"]
+            },
+            { 
+                title: "Text to Speech App", 
+                summary: "Browser-based text-to-speech converter using the Web Speech API with voice adjustments.", 
+                link: "https://tabitha-dev.github.io/code/API-Text-to-Speech/index.html", 
+                category: "blog", 
+                readTime: "Tool", 
+                date: "Dec 2024",
+                tags: ["Web Speech API", "Accessibility"]
+            },
+            { 
+                title: "Language Translator", 
+                summary: "Real-time language translator using the MyMemory Translation API.", 
+                link: "https://tabitha-dev.github.io/code/Translator-using-API/index.html", 
+                category: "blog", 
+                readTime: "Tool", 
+                date: "Dec 2024",
+                tags: ["API", "Translation"]
+            },
+            { 
+                title: "Crack Any DSA Problem", 
+                summary: "Learn a systematic, pattern-based approach to deconstruct and solve any Data Structures and Algorithms problem.", 
+                link: "https://www.linkedin.com/pulse/how-crack-any-dsa-problem-pattern-driven-guide-code-context-tabitha-k-wwvkc/", 
+                category: "linkedin", 
+                readTime: "12 min read", 
+                date: "Nov 2024",
+                tags: ["Career", "Algorithms"]
+            },
+            { 
+                title: "OpenAI’s Responses API Deep Dive", 
+                summary: "A deep dive into using OpenAI's Responses API to create more sophisticated and context-aware AI agents.", 
+                link: "https://www.linkedin.com/pulse/openais-responses-api-empowering-developers-advanced-ai-tabitha-k-gegbc/", 
+                category: "linkedin", 
+                readTime: "6 min read", 
+                date: "Nov 2024",
+                tags: ["OpenAI", "AI Agents"]
+            },
+            { 
+                title: "Model Context Protocol (MCP) Guide", 
+                summary: "An exploration of MCP and Agent-to-Agent (A2A) communication for building more intelligent AI systems.", 
+                link: "https://www.linkedin.com/pulse/how-use-model-context-protocol-mcp-agent-to-agent-a2a-tabitha-k-kw05c/", 
+                category: "linkedin", 
+                readTime: "7 min read", 
+                date: "Oct 2024",
+                tags: ["MCP", "AI"]
+            },
+            { 
+                title: "Supercharge Productivity with AI", 
+                summary: "Practical tips and AI tools that can be implemented immediately to boost efficiency and focus.", 
+                link: "https://www.linkedin.com/pulse/supercharge-your-productivity-ai-tabitha-k-frosc/", 
+                category: "linkedin", 
+                readTime: "5 min read", 
+                date: "Oct 2024",
+                tags: ["Productivity", "Tools"]
+            },
+            { 
+                title: "Job Market Scams", 
+                summary: "An analysis of new job market trends and a warning about the sophisticated scams targeting job seekers.", 
+                link: "https://www.linkedin.com/pulse/job-market-looks-different-2025-so-do-scams-tabitha-k-lqffc/", 
+                category: "linkedin", 
+                readTime: "4 min read", 
+                date: "Sep 2024",
+                tags: ["Career", "Insights"]
+            },
+            { 
+                title: "AI Entering a New Phase", 
+                summary: "An overview of the upcoming evolutionary steps for artificial intelligence and what to expect.", 
+                link: "https://www.linkedin.com/pulse/ai-entering-new-phase-2025-tabitha-k-iwryc/", 
+                category: "linkedin", 
+                readTime: "6 min read", 
+                date: "Sep 2024",
+                tags: ["Future", "Analysis"]
+            },
+            { 
+                title: "Train Your Own LLM", 
+                summary: "A step-by-step guide on the process and requirements for training a custom Large Language Model.", 
+                link: "https://www.linkedin.com/pulse/how-train-your-own-large-language-model-llm-from-scratch-tabitha-k-r7tzc/", 
+                category: "linkedin", 
+                readTime: "15 min read", 
+                date: "Aug 2024",
+                tags: ["LLM", "Tutorial"]
+            },
+            { 
+                title: "Mastering Automation", 
+                summary: "A comprehensive cheat sheet for developers on the latest tools and best practices for automation.", 
+                link: "https://www.linkedin.com/pulse/mastering-automation-2025-developers-ultimate-cheat-sheet-tabitha-k-hj9mc/", 
+                category: "linkedin", 
+                readTime: "10 min read", 
+                date: "Aug 2024",
+                tags: ["Automation", "DevOps"]
+            },
+            { 
+                title: "Traditional Automation vs. AI Agents", 
+                summary: "A developer-focused look at the trade-offs between traditional automation scripts and modern AI agents.", 
+                link: "https://www.linkedin.com/pulse/traditional-automation-vs-ai-agents-which-one-should-developers-k-frfwc/", 
+                category: "linkedin", 
+                readTime: "7 min read", 
+                date: "Jul 2024",
+                tags: ["Strategy", "AI"]
+            }
         ];
 
         const articleGrid = document.getElementById('article-grid');
+        let currentFilter = 'all';
+        let currentSearch = '';
 
-        function renderArticles(filter = 'all') {
+        function renderArticles() {
             articleGrid.innerHTML = '';
-            const filteredArticles = articles.filter(article => filter === 'all' || article.category === filter);
+            
+            // Filter logic
+            let filteredArticles = articles.filter(article => {
+                const matchesCategory = currentFilter === 'all' || article.category === currentFilter;
+                const matchesSearch = article.title.toLowerCase().includes(currentSearch) || 
+                                      article.summary.toLowerCase().includes(currentSearch) ||
+                                      article.tags.some(tag => tag.toLowerCase().includes(currentSearch));
+                return matchesCategory && matchesSearch;
+            });
             
             if (filteredArticles.length === 0) {
-                 articleGrid.innerHTML = `<p class="text-center text-slate-400 col-span-full py-12">No articles found in this category.</p>`;
+                 articleGrid.innerHTML = `<div class="text-center text-slate-500 col-span-full py-16 bg-white/5 rounded-2xl border border-white/5">
+                    <i data-lucide="search-x" class="w-12 h-12 mx-auto mb-4 opacity-50"></i>
+                    <p class="text-lg">No articles found matching your criteria.</p>
+                    <button onclick="resetFilters()" class="mt-4 text-indigo-400 hover:text-white text-sm font-medium">Clear filters</button>
+                 </div>`;
+                 lucide.createIcons();
                  return;
             }
 
             filteredArticles.forEach((article, index) => {
-                let colSpan = 'lg:col-span-1';
-                let rowSpan = 'lg:row-span-1';
-
-                // Apply specific bento grid classes based on article index
-                if (index === 0) {
-                    colSpan = 'sm:col-span-2 lg:col-span-2';
-                    rowSpan = 'lg:row-span-2';
-                } else if (index === 3 || index === 4) {
-                     colSpan = 'sm:col-span-1 lg:col-span-2';
+                let colSpan = '';
+                let extraClasses = '';
+                let isFeatured = false;
+                
+                // FEATURED LOGIC: First item (if no search active)
+                if (index === 0 && currentFilter === 'all' && currentSearch === '') {
+                    colSpan = 'md:col-span-2'; // Make it wider
+                    extraClasses = 'featured';
+                    isFeatured = true;
                 }
 
                 const articleEl = document.createElement('div');
-                articleEl.className = `card rounded-xl overflow-hidden article-item flex flex-col ${colSpan} ${rowSpan}`;
-                articleEl.dataset.category = article.category;
+                articleEl.className = `article-card rounded-2xl p-6 md:p-8 flex flex-col h-full ${colSpan} ${extraClasses} fade-in-up group`;
+                articleEl.style.animationDelay = `${index * 50}ms`;
+                articleEl.classList.add('visible'); 
                 
+                // Badges
+                let typeBadge = '';
+                let iconType = 'file-text'; // Default icon
+                
+                if(article.category === 'blog') {
+                    typeBadge = `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 mr-2"><i data-lucide="rocket" class="w-3 h-3"></i> Case Study</span>`;
+                } else {
+                    typeBadge = `<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-500/10 text-blue-400 border border-blue-500/20 mr-2"><i data-lucide="file-text" class="w-3 h-3"></i> Opinion</span>`;
+                }
+                
+                // Determine Icon Link
+                let linkIcon = 'arrow-up-right';
+                if (article.link.includes('github.com') && !article.link.includes('github.io')) {
+                    linkIcon = 'github';
+                }
+
+                // Tags Loop
+                let tagsHtml = article.tags.map(tag => `<span class="text-xs text-slate-500 font-medium bg-white/5 px-2 py-0.5 rounded-md border border-white/5">#${tag}</span>`).join(' ');
+
+                // Title Size
+                const titleSize = isFeatured ? 'text-3xl' : 'text-xl';
+                const summaryClass = isFeatured ? 'text-lg text-slate-300' : 'text-sm text-slate-400';
+                
+                // Custom Footer for Featured Project
+                let cardFooter = '';
+                if(isFeatured) {
+                    cardFooter = `
+                        <div class="flex gap-3 pt-6 mt-auto border-t border-white/10">
+                            <a href="${article.link}" target="_blank" class="flex-1 inline-flex items-center justify-center gap-2 bg-indigo-600 text-white px-4 py-2.5 rounded-lg font-semibold hover:bg-indigo-500 transition-colors">
+                                Read Case Study <i data-lucide="book-open" class="w-4 h-4"></i>
+                            </a>
+                            <a href="https://github.com/tabitha-dev" target="_blank" class="flex-1 inline-flex items-center justify-center gap-2 bg-white/5 text-white px-4 py-2.5 rounded-lg font-semibold hover:bg-white/10 border border-white/10 transition-colors">
+                                View Code <i data-lucide="github" class="w-4 h-4"></i>
+                            </a>
+                        </div>
+                    `;
+                } else {
+                    cardFooter = `
+                        <div class="flex items-center justify-between pt-4 border-t border-white/5 mt-auto">
+                            <div class="flex items-center gap-3 text-xs text-slate-500 font-medium">
+                                <span class="flex items-center gap-1"><i data-lucide="calendar" class="w-3 h-3"></i> ${article.date}</span>
+                                <span class="flex items-center gap-1"><i data-lucide="clock" class="w-3 h-3"></i> ${article.readTime}</span>
+                            </div>
+                            <a href="${article.link}" target="_blank" class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/5 hover:bg-indigo-500 hover:text-white transition-all text-slate-400 group-hover:scale-110 border border-white/5 hover:border-indigo-400">
+                                <i data-lucide="${linkIcon}" class="w-5 h-5"></i>
+                            </a>
+                        </div>
+                    `;
+                }
+
                 articleEl.innerHTML = `
-                    <div class="p-6 flex flex-col flex-grow">
-                        <span class="text-sm font-medium text-indigo-400 bg-indigo-900/50 px-3 py-1 rounded-full self-start">From LinkedIn</span>
-                        <h3 class="mt-4 text-xl font-bold text-white">${article.title}</h3>
-                        <p class="mt-2 text-slate-300 flex-grow">${article.summary}</p>
-                        <a href="${article.link}" target="_blank" class="mt-4 inline-flex items-center font-medium text-indigo-400 hover:text-indigo-300">
-                            Read More <i data-lucide="arrow-right" class="ml-2 h-4 w-4"></i>
-                        </a>
+                    <div class="flex flex-wrap gap-y-2 items-center mb-4">
+                        ${typeBadge}
+                        <div class="flex gap-2 flex-wrap">${tagsHtml}</div>
                     </div>
+                    <h3 class="${titleSize} font-heading font-bold text-white mb-3 leading-tight group-hover:text-indigo-400 transition-colors">
+                        <a href="${article.link}" target="_blank" class="block">${article.title}</a>
+                    </h3>
+                    <p class="${summaryClass} leading-relaxed mb-6 flex-grow line-clamp-4 summary">
+                        ${article.summary}
+                    </p>
+                    ${cardFooter}
                 `;
                 articleGrid.appendChild(articleEl);
             });
             lucide.createIcons();
         }
-        
-        document.addEventListener('DOMContentLoaded', () => {
+
+        function resetFilters() {
+            document.getElementById('search-input').value = '';
+            currentSearch = '';
+            currentFilter = 'all';
+            // Reset buttons visual state
+             const filterButtons = document.querySelectorAll('.filter-btn');
+             filterButtons.forEach(b => {
+                b.classList.remove('bg-white/10', 'text-white', 'shadow-sm');
+                b.classList.add('text-slate-400');
+                if(b.dataset.filter === 'all') {
+                     b.classList.add('bg-white/10', 'text-white', 'shadow-sm');
+                     b.classList.remove('text-slate-400');
+                }
+            });
             renderArticles();
+        }
+        
+        // Filter Buttons Logic
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterButtons.forEach(b => {
+                    b.classList.remove('bg-white/10', 'text-white', 'shadow-sm');
+                    b.classList.add('text-slate-400');
+                });
+                btn.classList.add('bg-white/10', 'text-white', 'shadow-sm');
+                btn.classList.remove('text-slate-400');
 
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            mobileMenuButton.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
+                currentFilter = btn.dataset.filter;
+                renderArticles();
             });
-            
-            const filterButtons = document.querySelectorAll('.filter-btn');
-            filterButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    filterButtons.forEach(btn => {
-                        btn.classList.remove('active', 'bg-indigo-500', 'text-white');
-                        btn.classList.add('bg-slate-700', 'text-slate-300');
-                    });
-                    button.classList.add('active', 'bg-indigo-500', 'text-white');
-                    button.classList.remove('bg-slate-700', 'text-slate-300');
-                    const filter = button.dataset.filter;
-                    
-                    document.querySelectorAll('#article-grid .article-item').forEach(item => {
-                        item.classList.add('hiding');
-                    });
+        });
 
-                    setTimeout(() => {
-                        renderArticles(filter);
-                    }, 400); 
-                });
+        // Search Logic
+        const searchInput = document.getElementById('search-input');
+        if (searchInput) {
+            searchInput.addEventListener('input', (e) => {
+                currentSearch = e.target.value.toLowerCase();
+                renderArticles();
             });
+        }
 
-            const scrollObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('reveal');
-                        scrollObserver.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.1 });
-            
-            document.querySelectorAll('.scroll-animate').forEach(el => {
-                scrollObserver.observe(el);
+        // Copy Email Function
+        function copyEmail() {
+            const email = "tabitha@ieee.org";
+            navigator.clipboard.writeText(email).then(() => {
+                const toast = document.getElementById("toast");
+                toast.className = "show";
+                setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
             });
+        }
 
-            const navObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if(entry.isIntersecting){
-                        const navId = entry.target.id;
-                        document.querySelectorAll('#nav-links a').forEach(link => {
-                           let linkNavId = link.dataset.navId;
-                           link.classList.toggle('active', linkNavId === navId);
-                        });
-                    }
-                });
-            }, { rootMargin: "-50% 0px -50% 0px" });
+        // Initial Render
+        renderArticles();
 
-            document.querySelectorAll('main > section').forEach(sec => navObserver.observe(sec));
-            
-            const newsletterForm = document.getElementById('newsletter-form');
-            if (newsletterForm) {
-                const newsletterContent = document.getElementById('newsletter-content');
-                newsletterForm.addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    newsletterContent.innerHTML = `
-                        <h2 class="text-3xl font-bold">Thank You!</h2>
-                        <p class="mt-4 opacity-80">You're on the list. Please check your inbox to confirm your subscription.</p>
-                    `;
-                });
+        // Animation Observer
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
+
+        // Mobile Menu
+        const mobileBtn = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (mobileBtn && mobileMenu) {
+            mobileBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+        }
+        
+        // Scroll To Top Logic
+        const scrollBtn = document.getElementById('scroll-top-btn');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollBtn.classList.add('show');
+            } else {
+                scrollBtn.classList.remove('show');
             }
+        });
+        scrollBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
 
     </script>
